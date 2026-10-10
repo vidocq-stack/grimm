@@ -17,18 +17,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR EUPL-1.2 OR GPL-2.0-or-later
  */
-package io.vidocq.grimm.cdi;
+package io.vidocq.it.grimm.openliberty;
 
-import org.junit.jupiter.api.Test;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+/**
+ * A Jakarta REST resource that is not a CDI bean: no bean-defining annotation, so in
+ * {@code annotated} discovery mode Grimm's extension never sees it. It reaches the document through
+ * the description {@code grimm-processor} generated at build time.
+ */
+@Path("/greetings")
+public class GreetingsResource {
 
-class GrimmConfigProducerTest {
-
-    @Test
-    void produceGrimmConfig_neverReturnsNull() {
-        GrimmConfigProducer producer = new GrimmConfigProducer();
-        assertNotNull(producer.produceGrimmConfig());
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Operation(summary = "Say hello")
+    public String hello() {
+        return "hello";
     }
 }
-

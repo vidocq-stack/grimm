@@ -17,18 +17,19 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR EUPL-1.2 OR GPL-2.0-or-later
  */
-package io.vidocq.grimm.cdi;
+package io.vidocq.it.grimm.weld.twocontainers;
 
-import org.junit.jupiter.api.Test;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+/** The resource of the first of two containers in one JVM. */
+@ApplicationScoped
+@Path("/first")
+public class FirstResource {
 
-class GrimmConfigProducerTest {
-
-    @Test
-    void produceGrimmConfig_neverReturnsNull() {
-        GrimmConfigProducer producer = new GrimmConfigProducer();
-        assertNotNull(producer.produceGrimmConfig());
+    @GET
+    public String get() {
+        return "first";
     }
 }
-

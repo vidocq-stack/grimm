@@ -17,18 +17,24 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR EUPL-1.2 OR GPL-2.0-or-later
  */
-package io.vidocq.grimm.cdi;
+package io.vidocq.it.grimm.openliberty;
 
-import org.junit.jupiter.api.Test;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+/** A resource that is also a CDI bean, so the extension sees it in {@code annotated} mode. */
+@ApplicationScoped
+@Path("/orders")
+public class OrdersResource {
 
-class GrimmConfigProducerTest {
-
-    @Test
-    void produceGrimmConfig_neverReturnsNull() {
-        GrimmConfigProducer producer = new GrimmConfigProducer();
-        assertNotNull(producer.produceGrimmConfig());
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "List the orders")
+    public Order[] list() {
+        return new Order[0];
     }
 }
-

@@ -17,18 +17,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR EUPL-1.2 OR GPL-2.0-or-later
  */
-package io.vidocq.grimm.cdi;
+package io.vidocq.it.grimm.openliberty;
 
-import org.junit.jupiter.api.Test;
+import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.core.Application;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-class GrimmConfigProducerTest {
-
-    @Test
-    void produceGrimmConfig_neverReturnsNull() {
-        GrimmConfigProducer producer = new GrimmConfigProducer();
-        assertNotNull(producer.produceGrimmConfig());
-    }
+/**
+ * Empty {@link Application}: Liberty scans the WAR, its {@code WEB-INF/lib} jars included, so
+ * Grimm's {@code /openapi} resource is mounted without being listed.
+ */
+@ApplicationPath("/")
+public class GrimmItApplication extends Application {
 }
-

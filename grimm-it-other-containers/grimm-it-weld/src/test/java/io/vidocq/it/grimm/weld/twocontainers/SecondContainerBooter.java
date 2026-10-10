@@ -17,18 +17,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR EUPL-1.2 OR GPL-2.0-or-later
  */
-package io.vidocq.grimm.cdi;
+package io.vidocq.it.grimm.weld.twocontainers;
 
-import org.junit.jupiter.api.Test;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+/**
+ * Starts the second container while the first one is still starting, after its discovery. Two
+ * applications that share Grimm's classes and start together interleave the same way.
+ */
+@ApplicationScoped
+public class SecondContainerBooter {
 
-class GrimmConfigProducerTest {
-
-    @Test
-    void produceGrimmConfig_neverReturnsNull() {
-        GrimmConfigProducer producer = new GrimmConfigProducer();
-        assertNotNull(producer.produceGrimmConfig());
+    void bootSecond(@Observes @Priority(1) @Initialized(ApplicationScoped.class) Object started) throws InterruptedException {
+        Thread boot = Thread.ofPlatform().start(TwoContainersOneJvmTest::startSecond);
+        boot.join();
     }
 }
-

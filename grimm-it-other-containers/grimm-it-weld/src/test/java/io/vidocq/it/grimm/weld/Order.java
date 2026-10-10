@@ -17,18 +17,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR EUPL-1.2 OR GPL-2.0-or-later
  */
-package io.vidocq.grimm.cdi;
+package io.vidocq.it.grimm.weld;
 
-import org.junit.jupiter.api.Test;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+@Schema(name = "Order", description = "An order the application exposes")
+public class Order {
 
-class GrimmConfigProducerTest {
-
-    @Test
-    void produceGrimmConfig_neverReturnsNull() {
-        GrimmConfigProducer producer = new GrimmConfigProducer();
-        assertNotNull(producer.produceGrimmConfig());
-    }
+    public String customer;
+    public int quantity;
 }
-
