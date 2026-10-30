@@ -8,3 +8,4 @@ New in the `{project-version}` development line — everything listed here lande
 * xref:concepts.adoc#definition-classes[`@OpenAPIDefinition` on an `Application` subclass] — read again on Vidocq, where such a class is no bean, and on a resource that has a compile-time fragment.
 * xref:concepts.adoc#runtime-endpoints[The runtime's endpoints stay out of the document] — `/health` and `/metrics` are no longer listed in the application's OpenAPI document.
 * The document starts with `openapi`, then `info`, in JSON and YAML alike.
+* xref:reference.adoc#processor-verbose[One note for the classes left to the run-time scan] — `grimm-processor` no longer prints an INFO line per resource class it leaves to the annotation scan at every build; `-Agrimm.processor.verbose=true` lists them.
